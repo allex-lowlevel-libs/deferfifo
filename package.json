@@ -1,0 +1,25 @@
+{
+  "name": "allex_deferfifolowlevellib",
+  "version": "1.0.0",
+  "description": "JavaScript FIFO of q defers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allex-lowlevel-libs/deferfifo.git"
+  },
+  "keywords": [
+    "ecosystem:AllexJS",
+    "fifo",
+    "defer",
+    "q"
+  ],
+  "author": "Veljko Popovic <v.s.popovic@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/allex-lowlevel-libs/deferfifo/issues"
+  },
+  "homepage": "https://github.com/allex-lowlevel-libs/deferfifo#readme"
+}
