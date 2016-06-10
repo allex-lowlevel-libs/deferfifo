@@ -11,18 +11,15 @@ function createDeferFifo(doublelinkedlistbase, inherit, q) {
   DeferFifoItem.prototype.apply = function(item) {
     switch(item.action) {
       case 'r':
-        this.content.resolve(item.value);
-        break;
+        return this.content.resolve(item.value);
       case 'n':
-        this.content.notify(item.progress);
-        break;
+        return this.content.notify(item.progress);
       case 'e':
-        this.content.reject(item.error);
-        break;
+        return this.content.reject(item.error);
       default:
         throw Error('INVALID ITEM: '+JSON.stringify(item));
     }
-    return func(this.content);
+    //return func(this.content);
   };
 
   function DeferFifo(){
