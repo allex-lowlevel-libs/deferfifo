@@ -27,25 +27,35 @@ function createDeferFifo(doublelinkedlistbase, inherit, q) {
   }
   ListMixin.addMethods(DeferFifo);
   DeferFifo.prototype.destroy = function () {
-    this.reject(Error('ABORTED'));
+    this.reject(new Error('ABORTED'));
     ListMixin.prototype.destroy.call(this);
   };
   DeferFifo.prototype.defer = function(){
-    var d = q.defer(), newItem = new DeferFifoItem(d);
-    this.assureForController();
+    var d, newItem;
+    if (!this.assureForController()) {
+      return q.reject(new Error('DESTROYED'));
+    }
+    d = q.defer();
+    newItem = new DeferFifoItem(d);
     this.controller.addToBack(newItem);
     return d.promise;
   };
   DeferFifo.prototype.resolve = function (result) {
-    this.assureForController();
+    if (!this.assureForController()) {
+      return;
+    }
     this.controller.drain({action:'r', value: result});
   };
   DeferFifo.prototype.reject = function (error) {
-    this.assureForController();
+    if (!this.assureForController()) {
+      return;
+    }
     this.controller.drain({action:'e', error: error});
   };
   DeferFifo.prototype.notify = function (progress) {
-    this.assureForController();
+    if (!this.assureForController()) {
+      return;
+    }
     this.controller.traverse({action:'n', progress: progress});
   };
 
